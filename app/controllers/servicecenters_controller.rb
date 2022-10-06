@@ -25,13 +25,17 @@ class ServicecentersController < ApplicationController
     end 
 
     def add_service
-        @a = ServiceCenter.find(params[:id])
-        @a.service_types.create(name:params[:service_name],cost:params[:service_cost])
+        get_association(params[:id],params[:service_name],params[:service_cost])
         flash[:n] = "add succesfully"   
     end    
     
     def shop_detail
         @shop  = shop_info(current_user.id)
+    end    
+
+
+    def profile
+        @profile = shop_info(current_user.id)
     end    
 
     private

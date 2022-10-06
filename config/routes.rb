@@ -8,8 +8,10 @@ Rails.application.routes.draw do
   root :to => "servicecenters#index"
   resources :servicecenters do
     collection do
-      get 'shop_detail', to: "servicecenters#shop_detail" 
+      get 'shop_detail', to: "servicecenters#shop_detail"
+      get 'profile', to: "servicecenters#profile" 
     end
+    
   end  
   get 'service_type/:id', to: "servicecenters#service_type" , as: :service_type
   get 'add_service/:id', to: "servicecenters#add_service" , as: :add_service
