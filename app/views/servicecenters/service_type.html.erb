@@ -1,0 +1,17 @@
+<%= form_with method: :get,url:add_service_path(@id) do |form| %>
+  <div>
+    <%= form.label :Service_Name %><br>
+    <%= form.text_field :service_name %>
+  </div>
+
+  <div>
+    <%= form.label :Cost_of_service%><br>
+    <%= form.text_field :service_cost %>
+  </div>
+
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %> 

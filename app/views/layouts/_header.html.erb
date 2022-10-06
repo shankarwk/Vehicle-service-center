@@ -1,0 +1,36 @@
+<header class="header">
+  <nav class="navbar">
+      <a href="#" class="nav-logo">Services</a>
+      <ul class="nav-menu">
+        <%= link_to root_path, class: "nav-link nav-item#{'active fw-bold' if current_page?(root_path)}" do %>
+        <div class="fa fa-home"></div>
+        Home
+      <% end %>
+                      <li class="nav-item">
+                     
+                      <%= link_to 'CREATE SHOP',new_servicecenter_path, class: "nav-link"%>
+                      </li>
+                      <li class="nav-item">
+                     
+                        <%= link_to 'SHOP',shop_detail_servicecenters_path, class: "nav-link"%>
+                        </li>
+ 
+                       <% if user_signed_in? %> 
+                      <li><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete},class:"text-bold nav-link nav-item"%></li>
+
+ <% else %>
+ <li><%= link_to "sign up", new_user_registration_path,class:"text-danger nav-link nav-item" %></li>
+ <li><%= link_to "sign in", new_user_session_path ,class:"nav-link text-bold nav-item"%></li>
+ 
+ 
+ <%end%>
+          
+      </ul>
+      <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+      </div>
+  </nav>
+</header>
+
