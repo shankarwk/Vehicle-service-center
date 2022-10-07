@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
         now you can create a shop
 
-<%= form_with url: '/servicecenters' do |form| %>
+<%= form_with model: @a,url: '/servicecenters' do |form| %>
   <div>
     <%= form.label :shop_name %><br>
     <%= form.text_field :shop_name %>
@@ -17,9 +17,14 @@
     <%= form.text_field :location %>
   </div>
 
-  <div>
+  <div>   
     <%= form.label :address %><br>
     <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <%= form.label :Number_of_slot %><br>
+    <%= form.text_field :slot %>
   </div>
   
 

@@ -20,9 +20,13 @@ Style/IfUnlessModifier:
 Style/UnpackFirst:
   Enabled: false
 
+
 #
 # Lint
 #
+
+Documentation:
+    Enabled: false
 
 Lint/SuppressedException:
   Enabled: false

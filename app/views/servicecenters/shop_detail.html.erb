@@ -1,4 +1,6 @@
-<% @shop.each do |i|%>
+<div class="addd-size">
+
+    <% @shop.each do |i|%>
 <%=i.shop_name%> <br>
 <%=i.shop_owner%> <br>
 <%=i.location%> <br>
@@ -10,4 +12,5 @@
 <%end%>
 <li><%= link_to 'Profile',profile_servicecenters_path, class: "text-danger"%></li>
 
+</div>
 

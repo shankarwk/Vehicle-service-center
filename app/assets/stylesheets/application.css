@@ -21,6 +21,7 @@ a {
 
 .header{
     border-bottom: 1px solid #E2E8F0;
+    background-color:#DD5353;
 }
 
 .navbar {
@@ -53,7 +54,7 @@ a {
 }
 
 .nav-item {
-    margin-left: 5rem;
+    margin-left: 2rem;
 }
 
 .nav-link{
@@ -69,7 +70,11 @@ a {
 .nav-logo {
     font-size: 3.1rem;
     font-weight: 500;
-    color: #482ff7;
+    color: white;
+}
+.add
+{
+    font-size: 30px;
 }
 
 @media only screen and (max-width: 768px) {

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   has_many :service_centers, dependent: :destroy
   # Include default devise modules. Others available are:

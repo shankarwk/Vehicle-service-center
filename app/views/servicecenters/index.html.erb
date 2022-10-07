@@ -1,0 +1,13 @@
+<%@all.each do |i|%>
+<li class="add"><%= i.shop_owner%></li> <br>
+<%= i.shop_name%> <br>
+<%= i.location%>  <br>
+<%= i.address%>  <br>
+<% a = ServiceType.where(service_center_id:i.id)%>
+ <% a.each do |t|%>
+ Type of services:<%= t.name%> <br>
+ Cost of service:<%=t.cost%>
+ <br>
+ <%end%>
+ <p>-----------------------------------------------------------------------</p>
+<%end%>

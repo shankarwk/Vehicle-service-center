@@ -4,12 +4,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # if user.user_rule =="admin"  
-    #   can :manage ,:all
-    # elsif user.user_rule =="user" 
-  
-    # end
-
+    can :manage, :all if user.user_rule == 'admin'
 
     # Define abilities for the user here. For example:
     #
