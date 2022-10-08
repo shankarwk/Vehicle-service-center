@@ -1,0 +1,25 @@
+<div class="container add">
+
+
+
+<%= form_with method: :post,url: request_confimation_service_centers_path do |form| %>
+<div>
+  <%= form.label :Your_Name %><br>
+  <%= form.text_field :name %>
+</div>
+
+<div>
+  <%= form.label :Vehicle_Number%><br>
+  <%= form.text_field :vehicle_number %>
+</div>
+<div>
+    <%= form.label :Contact_Number%><br>
+    <%= form.text_field :contact_number %>
+  </div>
+<div>
+  <%= form.submit %>
+</div>
+<% end %> 
+
+</div>
+

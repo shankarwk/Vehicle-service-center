@@ -4,7 +4,19 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :manage, :all if user.user_rule == 'admin'
+    if user.present?
+      if user.user_rule =="admin"  
+        can :manage ,:all
+      elsif user.user_rule =="shop owner" 
+        can :manage, :all, user_id:user.id  
+      elsif user.user_rule =="client" 
+        can :read ,:all
+        # can :create, ServiceCenter
+        # can :method , Model or table name
+      end
+    end   
+
+      # can :manage, :all if user.user_rule == 'admin' || can :manage, :all, user_id:user.id
 
     # Define abilities for the user here. For example:
     #

@@ -3,9 +3,11 @@
 # sasas
 
 # Some documentation for Person
-class ServicecentersController < ApplicationController
+class ServiceCentersController < ApplicationController
+  load_and_authorize_resource except: %i[index client_request request_confimation your_profile] 
   before_action :authenticate_user!, only: %i[new shop_detail]
   include Vehicle
+  
 
   def index
     @all = ServiceCenter.all
@@ -17,17 +19,28 @@ class ServicecentersController < ApplicationController
     redirect_to shop_detail_servicecenters_path if @service.save
   end
 
+  def admin 
+  end
+
+
+  def your_profile
+  end  
   def new
     @a = ServiceCenter.new
   end
 
   def service_type
-    @id = params[:id]
+
   end
 
+  def request_confimation
+    
+  end  
+
   def add_service
-    get_association(params[:id], params[:service_name], params[:service_cost])
-    flash[:n] = 'add succesfully'
+    get_association(params)
+    flash[:n] = 'succesfully'
+    redirect_to shop_detail_servicecenters_path
   end
 
   def shop_detail
@@ -41,6 +54,10 @@ class ServicecentersController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def client_request
+
+  end  
 
   private
 

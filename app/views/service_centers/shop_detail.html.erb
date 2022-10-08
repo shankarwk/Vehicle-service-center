@@ -1,0 +1,52 @@
+ <%= flash[:n]%>
+
+<div class="container add">
+
+    <% @shop.each do |i|%>
+<%=i.shop_name%> <br>
+<%=i.shop_owner%> <br>
+<%=i.location%> <br>
+<%=i.address%> <br>
+<!-- <li><%= link_to 'add service type and price',service_type_path(i.id), class: "text-danger"%></li> -->
+
+<!-- adding category for perticuler  shop -->
+
+<%= form_with method: :get,url:add_service_path(i.id) do |form| %>
+  <div>
+    <%= form.label :Service_Name %><br>
+    <%= form.text_field :service_name %>
+  </div>
+
+  <div>
+    <%= form.label :Cost_of_service%><br>
+    <%= form.text_field :service_cost %>
+  </div>
+ 
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %> 
+
+
+<!--adding slot for perticuler slot-->
+ 
+
+<%= form_with method: :post ,url: { controller: 'slot', action: 'create', id: i.id } do |form| %>
+  <div>
+    <%= form.label :Slot_Name %><br>
+    <%= form.text_field :name %>
+  </div> 
+  <div>
+    <%= form.submit 'add'%>
+  </div>
+<% end %> 
+
+
+
+
+ <p>-------------------------------------------------------------------------</p>
+<%end%>
+<li><%= link_to 'Profile',profile_service_centers_path, class: "text-danger"%></li>
+
+</div>
+
