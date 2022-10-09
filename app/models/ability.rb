@@ -10,7 +10,7 @@ class Ability
       elsif user.user_rule =="shop owner" 
         can :manage, :all, user_id:user.id  
       elsif user.user_rule =="client" 
-        can :read ,:all
+        can :read, :all
         # can :create, ServiceCenter
         # can :method , Model or table name
       end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_07_191827) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_09_135447) do
   create_table "clients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "vehicle_number"
@@ -20,7 +20,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_07_191827) do
     t.string "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["service_center_id"], name: "index_clients_on_service_center_id"
+    t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
   create_table "service_centers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -75,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_07_191827) do
   end
 
   add_foreign_key "clients", "service_centers"
+  add_foreign_key "clients", "users"
   add_foreign_key "service_centers", "users"
   add_foreign_key "service_types", "service_centers"
   add_foreign_key "services", "service_centers"
