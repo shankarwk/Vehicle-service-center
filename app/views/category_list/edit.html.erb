@@ -1,0 +1,26 @@
+<div class="container add mt-4">
+
+    <%= form_with model:@list do |form| %>
+    <div>
+      <%= form.label :Category_list%><br>
+      <%= form.text_field :name %>
+    </div>
+
+    <div>
+      <%= form.label :Price %><br>
+      <%= form.text_field :cost%>
+    </div>
+
+    <div>
+      <%= form.label :Time %><br>
+      <%= form.text_field :time%>
+    </div>
+    
+    <div>
+      <%= form.submit%>
+    </div>
+<% end %> 
+
+
+
+ </div>

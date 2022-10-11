@@ -1,44 +1,27 @@
-<% if user_signed_in? %>
-        now you can create a shop
+    
+    <%= form_with method: :post ,url: create_shop_service_centers_path do |form| %>
+    <div>
+      <%= form.label :shop_name %><br>
+      <%= form.text_field :shop_name %>
+    </div> 
+    <div>
+      <%= form.label :shop_owner %><br>
+      <%= form.text_field :shop_owner %>
+    </div>
+    <div>
+      <%= form.label :location %><br>
+      <%= form.text_field :location %>
+    </div> 
+    
+    <div>
+      <%= form.label :address %><br>
+      <%= form.text_field :address %>
+    </div> 
 
-<%= form_with model: @a,url: '/servicecenters' do |form| %>
-  <div>
-    <%= form.label :shop_name %><br>
-    <%= form.text_field :shop_name %>
-  </div>
-
-  <div>
-    <%= form.label :shop_owner %><br>
-    <%= form.text_field :shop_owner %>
-  </div>
-
-  <div>
-    <%= form.label :location %><br>
-    <%= form.text_field :location %>
-  </div>
-
-  <div>   
-    <%= form.label :address %><br>
-    <%= form.text_field :address %>
-  </div>
-
-  <div>
-    <%= form.label :Number_of_slot %><br>
-    <%= form.text_field :slot %>
-  </div>
+    <div>
+      <%= form.submit 'add'%>
+    </div>
+  <% end %> 
   
-
-  <div>
-    <%= form.submit %>
-  </div>
-
-<% end %> 
-
-
-<% else %>
-sign first
-
-
-<%end%>
-
+ 
 

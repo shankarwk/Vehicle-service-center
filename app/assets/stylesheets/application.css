@@ -106,3 +106,25 @@ a {
     }
 
 }
+/*  */
+
+*{
+    margin: 0%;
+    padding: 0%;
+}
+.bb
+{
+    background-color: #DD5353;
+}
+.card
+{
+    width: 200px;
+    height: 300;
+    background-color: #482ff7;
+    border-radius: 6px;
+    
+}
+
+.button_to{
+    display: inline;
+}

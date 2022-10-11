@@ -11,6 +11,8 @@ class SlotController < ApplicationController
 
   def create
     slot_association(params)
+    flash[:n] = "Slot add successfully"
+    redirect_to shop_detail_service_centers_path
   end
 
   def update

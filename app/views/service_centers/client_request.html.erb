@@ -1,28 +1,106 @@
 <h1>Please fill below detail to Request for <%= @request_id.shop_name%> </h1>
 
 
-<div class="container add">
+
+       <div class="container add">
+        <div class="row">
+                   <div class="col-6">
+                         <h1> slots</h1>
+                     <% if @slots %>
+                        <% @slots.each do |i|%>
+                          <%=i.name%>
+                          <%=i.status%> <br>
+                        <%end%>
+                        <% else %>
+                          There is nothing for to display
+                     <%end%>
+                   </div>
+
+                   <div class="col-6">
+                    dsdsd
+                  </div>
+        </div>
+
+
+       </div>
 
 
 
-<%= form_with method: :get,url: service_center_path(@request_id) do |form| %>
-<div>
-  <%= form.label :Your_Name %><br>
-  <%= form.text_field :name %>
+
+
+<div class="container add mt-5">
+
+
+   <div class="row">
+           <div class="col-5">
+
+               
+                <% if @request_id%>
+                  <%= form_with method: :get,url: service_center_path(@request_id) do |form| %>
+                  <div>
+                    <%= form.label :Your_Name %><br>
+                    <%= form.text_field :name %>
+                  </div>
+                  
+                  <div>
+                    <%= form.label :Vehicle_Number%><br>
+                    <%= form.text_field :vehicle_number %>
+                  </div>
+                  <div>
+                      <%= form.label :Contact_Number%><br>
+                      <%= form.text_field :contact_number %>
+                    </div>
+                    <div class="bg-dander mb-2">
+                      <%= form.label :Category%><br>
+                      <%= form.select :category,@service_type.pluck(:name)%>
+                  </div>
+                  
+                  <div>
+                    <%= form.submit "submit"%>
+                  </div>
+                  <% end %> 
+                  <%else%>
+                   nothing have to display
+                <%end%>
+
+           </div>
+
+
+           <div class="col-7 text-center">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+        
+
+                  <th scope="col">Category</th>
+                  <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%if @service_type%>
+                <%@service_type.each do |i|%>
+                <tr>
+                
+                  <td><%=i.name%> </td>
+                  <td><%=i.cost%> </td>
+                  
+                   
+                </tr>
+                <%end%>
+                <%else%>
+                nothing
+                <%end%>
+              </tbody>
+            </table>
+            
+
+            
+           </div>
+
+
+   </div>
 </div>
 
-<div>
-  <%= form.label :Vehicle_Number%><br>
-  <%= form.text_field :vehicle_number %>
-</div>
-<div>
-    <%= form.label :Contact_Number%><br>
-    <%= form.text_field :contact_number %>
-  </div>
-<div>
-  <%= form.submit "submit"%>
-</div>
-<% end %> 
 
-</div>
 
+ 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :category_list
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions',
@@ -11,10 +12,9 @@ Rails.application.routes.draw do
   resources :service_centers do
     collection do
       get 'shop_detail', to: 'service_centers#shop_detail'
-      get 'profile', to: 'service_centers#profile'
-      get 'admin', to: 'service_centers#admin'
-      get 'you_profile', to: 'service_centers#your_profile' 
-      get 'client_profile', to: 'service_centers#client_profile'     
+      get 'admin', to: 'service_centers#admin'    
+      post 'create_shop', to: 'service_centers#create_shop' 
+      get 'all_shop', to: "service_centers#all_shop"
     end    
   end
   get 'client_request/:id', to: 'service_centers#client_request',as: :client_request
@@ -25,7 +25,32 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-
+  resources :clients do
+    collection do  
+      get "user_profile",to: 'clients#user_profile'
+      get "admin_path" ,to: "clients#admin"
+    end    
+  end
   resources :slot ,except: %i[create]
   post 'create/:id', to: 'slot#create'
 end
+
+
+
+
+# def all_shop
+# end  
+
+# def new_form
+# end 
+
+# def edit
+
+# end 
+
+# def update_to
+# end  
+
+
+# def destroy
+# end 

@@ -1,11 +1,15 @@
   <div class="container add">
-    <% @data.each do |i| %>
-Client_name<%=i.name%> <br>
-vehicle_number:<%=i.vehicle_number%> <br>
-contact_number:<%=i.contact_number%> <br>
-Status:<%=i.status%> <br>
-<%= button_to "confirm" ,order_confirmation_path(i.id), method: :post, class: 'btn btn-primary'%>
-<p>-------------------------------------------------------------------------</p>
-<%end%> 
+  <%if @data%>
+     <% @data.each do |i| %>
+      Client_name<%=i.name%> <br>
+      vehicle_number:<%=i.vehicle_number%> <br>
+      contact_number:<%=i.contact_number%> <br>
+      Status:<%=i.status%> <br>
+    <%= button_to "confirm" ,order_confirmation_path(i.id), method: :post, class: 'btn btn-primary'%>
+    <p>-------------------------------------------------------------------------</p>
+     <%end%>
+  <%else%>
+  <h1>Having nothing to display</h1>
+  <%end%> 
 
   </div>

@@ -1,0 +1,13 @@
+ <div class="container add">
+    <h1>History</h1>
+  <%@client.each do |i|%>
+  <%a = Client.find(i)%>
+  <%=a.name%>
+  <%=a.vehicle_number%>
+  <%=a.contact_number%>
+  <%=a.cost%>
+   <br>
+<%end%>
+
+
+ </div>
