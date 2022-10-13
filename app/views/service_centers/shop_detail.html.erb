@@ -1,7 +1,10 @@
  <%= flash[:n]%>
 
 <div class="container add">
-       <% if @shop %>
+        <div class="row">
+                  <div class="col-3">
+
+                    <% if @shop %>
            
     <% @shop.each do |i|%>
     <%=i.shop_name%> <br>
@@ -19,16 +22,12 @@
     
     
     <%= form_with method: :get,url:add_service_path(i.id) do |form| %>
-      <div>
-        <%= form.label :Service_Name %><br>
-        <%= form.text_field :service_name %>
+       
+    <div class="form-group mb-2">
+      <%= form.label :category%><br>
+       <%= form.collection_select :category,CategoryList.all,:name ,:name%>
       </div>
-    
-      <div>
-        <%= form.label :Cost_of_service%><br>
-        <%= form.text_field :service_cost %>
-      </div>
-     
+  
       <div>
         <%= form.submit %>
       </div>
@@ -56,8 +55,42 @@
 
        <%else%>
        Nothing having to display
-       <%end%>
+  <%end%>
 
 
+                  </div>
+
+                  <div class="col-8">
+                     
+                      
+                    
+                     
+
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            
+                            <th scope="col">category</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <%@category.each do |i|%>
+                          <tr>
+                            
+                            <td>  <%=i.name%> </td>
+                            <td>  <%=i.time%> </td>
+                            <td>  <%=i.cost%></td>
+                          </tr>
+                          <%end%>
+                      
+                        
+                        </tbody>
+                      </table>
+                  </div>
+
+        </div>
+           
 </div>
 

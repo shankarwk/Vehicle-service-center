@@ -17,7 +17,11 @@
                    </div>
 
                    <div class="col-6">
-                    dsdsd
+                            <% @time.ids.each do |i|%>
+                              <%a = Client.find(i)%>
+                                <%=a.status%>
+                                <%=a.category_time%>
+                            <%end%>
                   </div>
         </div>
 
@@ -50,9 +54,12 @@
                       <%= form.label :Contact_Number%><br>
                       <%= form.text_field :contact_number %>
                     </div>
+
+
+
                     <div class="bg-dander mb-2">
                       <%= form.label :Category%><br>
-                      <%= form.select :category,@service_type.pluck(:name)%>
+                      <%= form.select :category,@a%>
                   </div>
                   
                   <div>
@@ -74,22 +81,24 @@
 
                   <th scope="col">Category</th>
                   <th scope="col">Price</th>
+                  <th scope="col">Time</th>
+
                 </tr>
               </thead>
               <tbody>
-                <%if @service_type%>
-                <%@service_type.each do |i|%>
+                <%CategoryList.all.each do |i|%>
                 <tr>
                 
                   <td><%=i.name%> </td>
                   <td><%=i.cost%> </td>
+                  <td><%=i.time%> </td>
                   
                    
                 </tr>
                 <%end%>
-                <%else%>
-                nothing
-                <%end%>
+
+          
+                
               </tbody>
             </table>
             

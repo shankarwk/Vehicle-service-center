@@ -1,9 +1,14 @@
 class ClientsController < ApplicationController
-    load_and_authorize_resource
+    before_action :authenticate_user!
     include Vehicle
     def index
     end     
-   
+
+    def show_data
+        @d = Client.find(params[:id])
+        @data  = CategoryList.find_by(name:@d.category)
+        @u = User.find(@d.user_id)
+    end
     def show
         @client = client_info(params[:id])
     end

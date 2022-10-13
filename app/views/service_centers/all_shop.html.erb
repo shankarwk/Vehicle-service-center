@@ -1,0 +1,10 @@
+ <div class="container add">
+    <h1>edit all shop here</h1>
+      <%@all.each do |i|%>
+      Shop_name: <%= i.shop_owner%>
+      Shop_name:<%= i.shop_name%> 
+      Location<%= i.location%>  
+      Address<%= i.address%>  
+      <%=link_to "show",,class:"btn btn-danger"%>
+      <%end%>
+ </div>

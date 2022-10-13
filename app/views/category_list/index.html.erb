@@ -1,4 +1,4 @@
-
+<!-- 
  <div class="container add">
 
 
@@ -17,4 +17,45 @@
 
 
 
- </div>
+ </div> -->
+
+
+  <div class="bg">
+
+<h2>Category Table <%=link_to "carete",new_category_list_path,class:"btn btn-danger text-center"%></h2>
+
+
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>cost</th>
+            <th>Time</th>
+            <th>Show</th>
+            <th>Edit</th>
+            <th>Destroy</th>
+
+        </tr>
+        </thead>
+        <tbody>
+    
+        <% @all.each do |i|%>
+        <tr>
+            <td> <%=i.name%></td>
+            <td> <%=i.cost%></td>
+            <td> <%=i.time%></td>
+            <td>   <%=link_to "show",category_list_path(i),class:"btn btn-danger"%> </td>
+            <td>     <%=link_to "edit", edit_category_list_path(i),class:"btn btn-danger"%></td>
+            <td>      <%= link_to "Destroy", category_list_path(i), data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure?"
+            } %></td>
+        </tr>
+        <%end%>
+       
+        <tbody>
+    </table>
+</div>
+
+  </div>

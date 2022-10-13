@@ -1,3 +1,4 @@
+<%=flash[:n]%>
 <div class="container add mt-4">
 
     <%= form_with method: :post ,model:@admin, url: {controller: 'category_list', action: 'create'} do |form| %>

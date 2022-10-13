@@ -1,0 +1,73 @@
+<div class="container">
+    <%= form_with method: :get,model:@d,url: service_center_path do |form| %>
+    <div> 
+      <%= form.label :Your_Name %><br>
+      <%= form.text_field :name %>
+    </div>
+      
+    <div> 
+        <%= form.label :email %><br>
+        <%= form.text_field :email, value: @u.email %>
+    </div>
+
+
+    <div> 
+      <%= form.label :time %><br>
+      <%= form.text_field :name, value: @data.cost %>
+    </div>
+    
+  
+    <div>
+        <%= form.label :Contact %><br>
+        <%= form.text_field :contact_number %>
+      </div>
+    
+      <div>
+        <%= form.label :Vehicle_number %><br>
+        <%= form.text_field :vehicle_number %>
+      </div>
+      
+      <div>
+        <%= form.label :status %><br>
+        <%= form.text_field :status %>
+      </div>
+    
+      <div>
+        <%= form.label :Request_date%><br>
+        <%= form.text_field :request_date %>
+      </div>
+
+      <div>
+        <%= form.label :Category%><br>
+        <%= form.text_field :category %>
+      </div>
+      <div>
+        <%= form.label :Time_will_service_take%><br>
+        <%= form.text_field :name, value: @data.time %>
+      </div>
+
+      <div>
+        <%= form.label :Request_time%><br>
+        <%= form.text_field :request_time %>
+      </div>
+    
+      <div>
+        <%= form.label :confirm_date%><br>
+        <%= form.text_field :confirm_date %>
+      </div>
+    
+      <div>
+        <%= form.label :confirm_time%><br>
+        <%= form.text_field :confirm_time %>
+      </div>
+    
+    
+    <div>
+      <%= form.submit "submit"%>
+    </div>
+    <% end %> 
+    
+    
+
+
+</div>

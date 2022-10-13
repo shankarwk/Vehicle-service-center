@@ -6,10 +6,24 @@ class ServiceCentersController < ApplicationController
   
 
   def index
-    @all = ServiceCenter.all
+    begin
+      a=6
+      Message::AddService.new().print(a)
+      @all = ServiceCenter.all
+    rescue => exception
+      puts exception
+    end
   end
   
   def all_shop
+    @all = ServiceCenter.all
+  end  
+
+  def show_data
+    a = Client.find(params[:id])
+  end  
+  def shop_list
+
   end  
 
   def new_form
@@ -36,6 +50,7 @@ class ServiceCentersController < ApplicationController
     @slots.update(status:"booked")
     @user = User.find_by(id:@data.user_id)
     @data.update(status:"booked")
+    @data.update(confirm_slot:@slots.name)
     UserMailer.with(email: @user.email).order_mail.deliver_later
   end  
 
@@ -44,7 +59,10 @@ class ServiceCentersController < ApplicationController
 
 
   def request_to_owner
+    @service_center_id = ServiceCenter.find(params[:id])
+    service_center_id = @service_center_id.slots.where(status:"available")
     @data = Client.where(service_center_id:params[:id])
+  
   end  
   
 
@@ -63,7 +81,8 @@ class ServiceCentersController < ApplicationController
     @request_id = ServiceCenter.find(params[:id])
     @cat = @request_id.service_types.find_by(name:params[:category])
     @cost = @cat.cost
-    client_owner_association_for_order(params,current_user.id,@cost)
+    @category_time = @cat.time
+    client_owner_association_for_order(params,current_user.id,@cost,@cate)
   end
 
 
@@ -75,11 +94,14 @@ class ServiceCentersController < ApplicationController
 
   def shop_detail
     @shop = shop_info(current_user.id)
+    @category = CategoryList.all
   end
 
-  def client_request
-    @service_type = ServiceType.where(service_center_id:params[:id])
+  def client_request 
     @request_id = ServiceCenter.find(params[:id])
+    @a = @request_id.service_types.pluck(:name)
+    @time = Client.where(service_center_id:@request_id)
+
     @slots  = Slot.where(service_center_id:params[:id])
     
   end  

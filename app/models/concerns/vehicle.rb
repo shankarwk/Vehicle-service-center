@@ -11,7 +11,13 @@ module Vehicle
 
   def get_association(params)
     @a = ServiceCenter.find(params[:id])
-    @a.service_types.create(name: params[:service_name], cost: params[:service_cost])
+    @list = @a.service_types.all.pluck(:name)
+    @category = CategoryList.find_by(name:params[:category])
+    if @list.include?(params[:category])
+      raise "Already exists"
+    else  
+      @a.service_types.create(name:@category.name,cost:@category.cost,time:@category.time)
+    end  
   end
 
   def slot_association(params)
@@ -19,9 +25,9 @@ module Vehicle
     @service_center_id.slots.create(name:params[:name])
   end  
 
-  def client_owner_association_for_order(params,id,cost)
+  def client_owner_association_for_order(params,id,cost,cat)
     @service_center_id = ServiceCenter.find(params[:id])
-    @service_center_id.clients.create(name:params[:name],vehicle_number:params[:vehicle_number],contact_number:params[:contact_number],user_id:id,category:params[:category],cost:cost)
+    @service_center_id.clients.create(name:params[:name],vehicle_number:params[:vehicle_number],contact_number:params[:contact_number],user_id:id,category:params[:category],cost:cost,request_time:Time.now.strftime("%T"),request_date:Time.now.strftime("%d %m %y"),category_time:cat)
   end  
 
   def add
@@ -34,7 +40,3 @@ module Vehicle
 
 end
 
-# t.string "name"
-# t.string "vehicle_number"
-# t.string "contact_number"
-# params[:id], params[:service_name], params[:service_cost]

@@ -7,7 +7,10 @@ class CategoryListController < ApplicationController
   def create
     authorize! :create, CategoryList
     @admin = CategoryList.new(category_params)
-    @admin.save
+    if @admin.save
+      flash[:n] = "Succefully updated"
+      redirect_to category_list_index_path
+    end   
   end
 
   def update

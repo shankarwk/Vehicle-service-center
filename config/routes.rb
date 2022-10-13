@@ -15,7 +15,11 @@ Rails.application.routes.draw do
       get 'admin', to: 'service_centers#admin'    
       post 'create_shop', to: 'service_centers#create_shop' 
       get 'all_shop', to: "service_centers#all_shop"
+      get 'shop_list', to: "service_centers#shop_list"
     end    
+    member do
+      get 'show_data', to: "service_centers#show_data"
+    end
   end
   get 'client_request/:id', to: 'service_centers#client_request',as: :client_request
   get 'add_service/:id', to: 'service_centers#add_service', as: :add_service
@@ -30,6 +34,10 @@ Rails.application.routes.draw do
       get "user_profile",to: 'clients#user_profile'
       get "admin_path" ,to: "clients#admin"
     end    
+    member do 
+      get "show_data", to: "clients#show_data"
+    end  
+
   end
   resources :slot ,except: %i[create]
   post 'create/:id', to: 'slot#create'
