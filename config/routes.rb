@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
+
+  get 'payment/:id', to: 'service_centers#payment', as: 'payment'
+  post 'charge', to: 'service_centers#charge', as: 'charge'
   # root "articles#index"
   resources :clients do
     collection do  
@@ -46,19 +49,3 @@ end
 
 
 
-# def all_shop
-# end  
-
-# def new_form
-# end 
-
-# def edit
-
-# end 
-
-# def update_to
-# end  
-
-
-# def destroy
-# end 

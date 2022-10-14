@@ -14,7 +14,7 @@ module Vehicle
     @list = @a.service_types.all.pluck(:name)
     @category = CategoryList.find_by(name:params[:category])
     if @list.include?(params[:category])
-      raise "Already exists"
+      raise "This category already exits"
     else  
       @a.service_types.create(name:@category.name,cost:@category.cost,time:@category.time)
     end  
@@ -38,5 +38,20 @@ module Vehicle
     @user = Client.where(user_id: id).pluck(:id)
   end  
 
-end
 
+  def next_service(date,client)
+    month = date[3,3].to_i
+    year = date[5,7].to_i
+    date = date[0,2].to_i
+    sum = month+3
+    if sum<=12
+      t = "#{date} #{sum} #{year}"
+      client.update(next_date:t)
+    else
+      year = year+1
+      month = sum - month
+      client.update(next_date:t)
+    end  
+  end  
+
+end

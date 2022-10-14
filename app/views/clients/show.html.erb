@@ -6,8 +6,42 @@
   <%=a.vehicle_number%>
   <%=a.contact_number%>
   <%=a.cost%>
+  <%=a.service_center_id%>
+  <%=a.user_id%>
+  <%=a.request_time%>
+  <%=a.request_date%>
+  <%=a.category%>
+  <%=a.cost%>
+  <%=a.confirm_date%>
+  <%=a.confirm_time%>
+  <%=a.confirm_slot%>
+  <%=a.category_time%> <br>
    <br>
 <%end%>
-
+<!-- 
+reate_table "clients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "vehicle_number"
+    t.string "contact_number"
+    t.bigint "service_center_id", null: false
+    t.string "status", default: "not booked"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.string "category"
+    t.string "cost"
+    t.string "confirm_time"
+    t.string "confirm_date"
+    t.string "confirm_slot"
+    t.string "request_date"
+    t.string "request_time"
+    t.string "category_time"
+    t.index ["service_center_id"], name: "index_clients_on_service_center_id"
+    t.index ["user_id"], name: "index_clients_on_user_id"
+  end -->
 
  </div>
+
+
+ 
+

@@ -25,7 +25,7 @@ gem 'turbo-rails'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'stimulus-rails'
-
+gem 'ransack'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'devise'
 gem 'jbuilder'
@@ -49,10 +49,11 @@ gem 'bootsnap', require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
-
+gem 'simple_form'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'dotenv-rails'  
 end
 
 group :development do
@@ -60,7 +61,7 @@ group :development do
   gem 'web-console'
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
-
+gem 'better_errors'
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
@@ -73,3 +74,4 @@ group :test do
 end
 
 gem 'rubocop-rails', '~> 2.16'
+gem 'stripe'

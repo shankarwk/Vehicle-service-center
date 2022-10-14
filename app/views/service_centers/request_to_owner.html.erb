@@ -5,8 +5,9 @@
       vehicle_number:<%=i.vehicle_number%> <br>
       contact_number:<%=i.contact_number%> <br>
       Status:<%=i.status%> <br>
-    <%= button_to "confirm" ,order_confirmation_path(i.id), method: :post, class: 'btn btn-primary'%>
-    <%= link_to 'Click', show_data_client_path(i.id) ,class: 'btn btn-primary' %>
+    <%= button_to "confirm" ,order_confirmation_path(i.id), method: :post, class: 'btn-primary'%>
+    <!-- <%= link_to "confirm" ,order_confirmation_path(i.id), class: 'btn-primary'%> -->
+    <!-- <%= link_to 'Click', show_data_client_path(i.id) ,class: 'btn btn-primary' %> -->
     <p>-------------------------------------------------------------------------</p>
      <%end%>
   <%else%>

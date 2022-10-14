@@ -6,13 +6,9 @@ class ServiceCentersController < ApplicationController
   
 
   def index
-    begin
-      a=6
-      Message::AddService.new().print(a)
-      @all = ServiceCenter.all
-    rescue => exception
-      puts exception
-    end
+    @all = ServiceCenter.all
+    @q = ServiceCenter.ransack(params[:q])
+    @address = @q.result(distinct: true)
   end
   
   def all_shop
@@ -49,6 +45,9 @@ class ServiceCentersController < ApplicationController
     @slots = @service.slots.where(status:"available").first
     @slots.update(status:"booked")
     @user = User.find_by(id:@data.user_id)
+    @data.update(confirm_date:Time.now.strftime("%d %m %y"))
+    @data.update(confirm_time:Time.now.strftime("%T"))
+    @next_date = next_service(@data.confirm_date,@data)
     @data.update(status:"booked")
     @data.update(confirm_slot:@slots.name)
     UserMailer.with(email: @user.email).order_mail.deliver_later
@@ -82,14 +81,20 @@ class ServiceCentersController < ApplicationController
     @cat = @request_id.service_types.find_by(name:params[:category])
     @cost = @cat.cost
     @category_time = @cat.time
-    client_owner_association_for_order(params,current_user.id,@cost,@cate)
+    client_owner_association_for_order(params,current_user.id,@cost,@category_time)
   end
 
 
   def add_service
-    get_association(params)
-    flash[:n] = 'succesfully'
-    redirect_to shop_detail_service_centers_path
+    begin 
+      # get_association(params)
+      Shop::OrderService.new().get_association(params)
+      flash[:n] = 'Your are added the category succesfully'
+      redirect_to shop_detail_service_centers_path
+    rescue => e
+      flash[:n] = e
+      redirect_to shop_detail_service_centers_path
+    end    
   end
 
   def shop_detail
@@ -104,7 +109,31 @@ class ServiceCentersController < ApplicationController
 
     @slots  = Slot.where(service_center_id:params[:id])
     
-  end  
+  end
+  
+  
+  def charge
+    service_center = ServiceCenter.find_by(id: params[:id])
+    check = true
+    if check
+      s = StripeService.new
+      token = s.create_card_token(params)
+      customer = s.find_or_create_customer(current_user)
+      token = s.create_card_token(params)
+      card = s.create_stripe_customer_card(token.id,customer)
+      s.create_stripe_charge(params[:amount_to_be_paid], customer.id, card.id, service_center)
+      current_user.change_user_to_paid
+      s.service_payment(current_user.id, params[:id], params[:amount_to_be_paid])
+      flash[:notice] = 'Payment successfully completed without errors.'
+      redirect_to root_path(current_user.id)
+    else
+      redirect_to user_path(current_user.id), alert: 'some error occured'
+    end
+  end
+  def payment; end
+
+
+
 
   private
 

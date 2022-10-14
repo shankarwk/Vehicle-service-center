@@ -1,32 +1,74 @@
-<div class="container add">
 
+<% if @shop_owner%>
+<%@shop_owner.each do |i|%>
+<header>
+  <h2>  <p style="margin-right: 822px;"> slots</p>
+  <% a = ServiceCenter.find(i.id)%>
+  <% a.slots.all.each do |j|%>
+   <div class="row container">
+               <div class=" text-center  col-3">
+                <%=j.name%> 
+                <br>
+               </div>
 
-    <% if @shop_owner%>
-     <%@shop_owner.each do |i|%>
-      <%= i.shop_owner%> <br>
-      <%= i.shop_name%> <br>
-      <%= i.location%>  <br>
-      <%= i.address%>  <br>
+               <div class="col-7 text-center">
+                
+                <%=j.status%><br>
+              </div>
+   </div>
 
-      <% a = ServiceType.where(service_center_id:i.id)%>
-        <% a.each do |t|%>
-         Type of services:<%= t.name%> <br>
-         Cost of service:<%=t.cost%>
-        <br>
-      <%end%>
-      <!--  -->
-       <h1>Slots</h1>
-      <% a = ServiceCenter.find(i.id)%>
-      <% a.slots.all.each do |j|%>
-       <%=j.name%> 
-       <%=j.status%><br>
-      <%end%>
-      <!--  -->
+  <%end%></h2>
+</header>
 
-      <%=link_to "all _request" , request_to_owner_path(i.id)%>
-     <p>-----------------------------------------------------------------------</p>
+<section>
+ 
+  <nav>
+    <ul class="add row">
+       <div class="col-6">
+          Name <br>
+          Shop name<br>
+          Location  <br>
+          Address<br>
+       </div>
+       <div class="col-6">
+        <%= i.shop_owner%> <br>
+        <%= i.shop_name%>  <br>
+        <%= i.location%>  <br>
+        <%= i.address%>  <br>
+       </div>
+    </ul>
+  </nav>
+  
+  <article class="add">
+    <h2 style="color:black; margin-right:1050px;">Category</h2>
+    <% a = ServiceType.where(service_center_id:i.id)%>
+    <% a.each do |t|%>
+      <div class="row">
+        <div class=" text-center  col-3">
+          Type of services: <br>
+          Cost of service:
+          <br>
+         </div>
+    
+         <div class="col-7 text-center">
+          
+          <%= t.name%> <br>
+         <%=t.cost%>
+        </div>
+      </div>
+ 
+    
+    <br>
   <%end%>
+
+    
+  </article>
+</section>
+
+<footer>
+  <%=link_to "all _request" , request_to_owner_path(i.id) ,class:"btn text-white"%>
+</footer>
+<%end%>
   <%else%>
     ftgyhjk
   <%end%>
-  </div>

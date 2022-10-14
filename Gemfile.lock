@@ -70,6 +70,10 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
     bcrypt (3.1.18)
+    better_errors (2.9.1)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     bindex (0.8.1)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
@@ -85,6 +89,7 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     childprocess (4.1.0)
+    coderay (1.1.3)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     debug (1.6.2)
@@ -96,6 +101,10 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.11.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -173,6 +182,10 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
+    ransack (3.2.1)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
     redis (4.8.0)
     regexp_parser (2.6.0)
     reline (0.3.1)
@@ -204,6 +217,9 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    simple_form (5.1.0)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -213,6 +229,7 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
+    stripe (7.1.0)
     thor (1.2.1)
     timeout (0.3.0)
     turbo-rails (1.3.0)
@@ -245,21 +262,26 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  better_errors
   bootsnap
   cancancan
   capybara
   debug
   devise
+  dotenv-rails
   importmap-rails
   jbuilder
   mysql2 (~> 0.5)
   puma (~> 5.0)
   rails (~> 7.0.3, >= 7.0.3.1)
+  ransack
   redis (~> 4.0)
   rubocop-rails (~> 2.16)
   selenium-webdriver
+  simple_form
   sprockets-rails
   stimulus-rails
+  stripe
   turbo-rails
   tzinfo-data
   web-console
