@@ -1,0 +1,72 @@
+<h1>Bill Detail</h1>
+ <div class="bg">
+
+  <div class="table-wrapper">
+    <table class="fl-table">
+      <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">vehicle_number</th>
+              <th scope="col">Contact number</th>
+              <th scope="col">cost</th>
+              <th scope="col">Request Date</th>
+              <th scope="col">Request_time</th>
+              <th scope="col">Cofirm date</th>
+              <th scope="col">Cofirm Time</th>
+              <th scope="col">Slot number</th>
+              <th scope="col">Category</th>
+              <th scope="col">Next service date</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <%if @data == 0%>
+                  Please pay first
+                  <%else%>
+
+                  <td>
+                    <%=@data.name%>
+                  </td>
+                  <td>
+                    <%=@data.vehicle_number%>
+                  </td>
+                  <td>
+                    <%=@data.contact_number%>
+                  </td>
+                  <td>
+                    <%=@data.cost%>
+                  </td>
+               
+                 
+                  <td>
+                    <%=@data.request_date%>
+                  </td>
+                  <td>
+                    <%=@data.request_time%>
+                  </td>
+                  <td>
+                    <%=@data.confirm_date%>
+                  </td>
+                  <td>
+                    <%=@data.confirm_time%>
+                  </td>
+                  <td>
+                    <%=@data.confirm_slot%>
+                  </td>
+                  <td>
+                    <%=@data.category%>
+                  </td>
+                  <td>
+                    <%=@data.next_date%>
+                  </td>
+                  
+
+                  <%end%>
+              </tr> 
+              
+          </tbody>
+        </table>
+
+      </div>
+   
+ </div>

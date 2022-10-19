@@ -1,27 +1,53 @@
     
-    <%= form_with method: :post ,url: create_shop_service_centers_path do |form| %>
-    <div>
-      <%= form.label :shop_name %><br>
-      <%= form.text_field :shop_name %>
-    </div> 
+  <div class="container col-lg-6 mx-lg-auto card shadow mt-5">
+    <div >
+      <h3 class="card-title text-center">CREATE SHOP</h3>
+    </div>
+    
+    <%= form_with  model: @service_center do |form| %>
+  
     <div>
       <%= form.label :shop_owner %><br>
-      <%= form.text_field :shop_owner %>
+      <%= form.text_field :shop_owner ,class: "form-control form-control-lg"%>
+      <% @service&.errors&.full_messages_for(:shop_owner)&.each do |message| %>
+        <div style="color: red;"><%= message %></div>
+      <% end %>
     </div>
+    
+    <div>
+      <%= form.label :shop_name %><br>
+      <%= form.text_field :shop_name ,class: "form-control form-control-lg"%>
+      <% @service&.errors&.full_messages_for(:shop_name)&.each do |message| %>
+        <div style="color: red;"><%= message %></div>
+      <% end %>
+    </div> 
+
     <div>
       <%= form.label :location %><br>
-      <%= form.text_field :location %>
+      <%= form.text_field :location,class: "form-control form-control-lg" %>
+      <% @service&.errors&.full_messages_for(:location)&.each do |message| %>
+        <div style="color: red;"><%= message %></div>
+      <% end %>
     </div> 
     
     <div>
       <%= form.label :address %><br>
-      <%= form.text_field :address %>
+      <%= form.text_field :address ,class: "form-control form-control-lg"%>
+      <% @service&.errors&.full_messages_for(:address)&.each do |message| %>
+        <div style="color: red;"><%= message %></div>
+      <% end %>
+    </div>  
+    <div>
+      <%= form.label :image %><br>
+      <%= form.file_field :image ,class: "form-control form-control-lg"%>
     </div> 
 
-    <div>
-      <%= form.submit 'add'%>
+    <div class="mt-3">
+      <%= form.submit 'create shop'%>
     </div>
   <% end %> 
+
+   </div>
   
  
 

@@ -1,6 +1,6 @@
 
 class ServiceCentersController < ApplicationController
-  load_and_authorize_resource except: %i[index client_request your_profile client_profile order_confirmation] 
+  load_and_authorize_resource except: %i[index client_request your_profile client_profile order_confirmation charge payment create] 
   before_action :authenticate_user!, except: %i[index]
   include Vehicle
   
@@ -16,41 +16,45 @@ class ServiceCentersController < ApplicationController
   end  
 
   def show_data
-    a = Client.find(params[:id])
+    @a = ServiceCenter.find(params[:id])
   end  
   def shop_list
 
+  end   
+   
+  def order_pending
+    @a = ServiceCenter.find(params[:client][:service_center_id])
+    begin
+      Shop::OrderService.new().pending_order_for_date(params)
+    rescue =>e
+      flash[:msg] = e
+      redirect_to request_to_owner_path(@a)
+    end    
   end  
 
-  def new_form
-  end 
-
   def edit
-
+    @edit = ServiceCenter.find(params[:id])
   end 
 
-  def update_to
+  def update
+    @service_center = ServiceCenter.find(params[:id])
+    @service_center.update(service_params)
   end  
 
 
   def destroy
+    @destroy = ServiceCenter.find(params[:id])
+    @destroy.destroy
+    flash[:msg] = "deleted successfully"
+    redirect_to all_shop_service_centers_path
   end 
 
 
 
   def order_confirmation
     authorize! :update, ServiceCenter
-    @data = Client.find(params[:id])
-    @service = ServiceCenter.find(@data.service_center_id) 
-    @slots = @service.slots.where(status:"available").first
-    @slots.update(status:"booked")
-    @user = User.find_by(id:@data.user_id)
-    @data.update(confirm_date:Time.now.strftime("%d %m %y"))
-    @data.update(confirm_time:Time.now.strftime("%T"))
-    @next_date = next_service(@data.confirm_date,@data)
-    @data.update(status:"booked")
-    @data.update(confirm_slot:@slots.name)
-    UserMailer.with(email: @user.email).order_mail.deliver_later
+    
+    Shop::OrderService.new().order_confirmation(params)
   end  
 
   def admin 
@@ -61,33 +65,54 @@ class ServiceCentersController < ApplicationController
     @service_center_id = ServiceCenter.find(params[:id])
     service_center_id = @service_center_id.slots.where(status:"available")
     @data = Client.where(service_center_id:params[:id])
-  
   end  
   
+  def create
+    @service = ServiceCenter.new(service_params)
+    @service.user = current_user
+    unless @service.save
+      render :new, status: :unprocessable_entity
+    else
+      redirect_to shop_detail_service_centers_path 
+    end
+  end   
 
 
   def new
-
+    @service_center = ServiceCenter.new
   end
- 
-  def create_shop
-    @service = ServiceCenter.new(service_params)
-    @service.user = current_user
-    redirect_to shop_detail_service_centers_path if @service.save
-  end  
+
+
  
   def show
     @request_id = ServiceCenter.find(params[:id])
-    @cat = @request_id.service_types.find_by(name:params[:category])
-    @cost = @cat.cost
-    @category_time = @cat.time
-    client_owner_association_for_order(params,current_user.id,@cost,@category_time)
+    begin 
+      year = params[:request_date][2,2].to_i
+      year1 = Time.now.strftime("%y").to_i
+      y = year
+      y1 = year1+1
+      m = params[:request_date].split("-")[1].to_i
+      m1 = Time.now.strftime("%m").to_i
+      if year == year1
+        if m>=m1
+          Shop::OrderService.new().request(params,current_user.id)
+        else
+          flash[:e] = "invalide date"
+          redirect_to client_request_path(@request_id)
+        end    
+      else
+        raise "Please fill valid date"
+      end    
+    rescue => e
+      flash[:error] = e
+      redirect_to client_request_path(@request_id)
+    end    
   end
 
 
   def add_service
     begin 
-      # get_association(params)
+      # get_association(params
       Shop::OrderService.new().get_association(params)
       flash[:n] = 'Your are added the category succesfully'
       redirect_to shop_detail_service_centers_path
@@ -106,38 +131,23 @@ class ServiceCentersController < ApplicationController
     @request_id = ServiceCenter.find(params[:id])
     @a = @request_id.service_types.pluck(:name)
     @time = Client.where(service_center_id:@request_id)
-
     @slots  = Slot.where(service_center_id:params[:id])
-    
   end
   
   
   def charge
-    service_center = ServiceCenter.find_by(id: params[:id])
-    check = true
-    if check
-      s = StripeService.new
-      token = s.create_card_token(params)
-      customer = s.find_or_create_customer(current_user)
-      token = s.create_card_token(params)
-      card = s.create_stripe_customer_card(token.id,customer)
-      s.create_stripe_charge(params[:amount_to_be_paid], customer.id, card.id, service_center)
-      current_user.change_user_to_paid
-      s.service_payment(current_user.id, params[:id], params[:amount_to_be_paid])
-      flash[:notice] = 'Payment successfully completed without errors.'
-      redirect_to root_path(current_user.id)
-    else
-      redirect_to user_path(current_user.id), alert: 'some error occured'
-    end
+    flash[:alert] = Shop::OrderService.new().payment_gate_way(params,current_user) ? "bill charged successfully" : "some error occoured" 
+    @payment = Payment.new(user_id: current_user.id, service_center_id: params[:service_center_id], client_id: params[:id],amount: params[:cost])
+    @payment.save
+    redirect_to root_path
   end
-  def payment; end
 
-
-
+  def payment 
+  end
 
   private
-
   def service_params
-    params.permit(:shop_name, :shop_owner, :location, :address)
+    params.require(:service_center).permit(:shop_name, :shop_owner, :location, :address,:image)
   end
 end
+

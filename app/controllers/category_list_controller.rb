@@ -14,7 +14,8 @@ class CategoryListController < ApplicationController
   end
 
   def update
-    authorize! :read, CategoryList
+    a = CategoryList.find(params[:id])
+    a.update(category_params)
   end
 
   def show

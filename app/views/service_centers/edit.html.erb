@@ -1,0 +1,36 @@
+<div class="container add mt-4">
+
+    <%= form_with model:@edit do |form| %>
+    <div>
+        <%= form.label :shop_owner %><br>
+        <%= form.text_field :shop_owner%>
+      </div>
+    <div>
+      <%= form.label :Shop_name%><br>
+      <%= form.text_field :shop_name %>
+    </div>
+
+    <div>
+      <%= form.label :location %><br>
+      <%= form.text_field :location %>
+    </div>
+
+    <div>
+        <%= form.label :address %><br>
+        <%= form.text_field :address %>
+    </div>
+  
+    <div>
+        <%= form.label :image %><br>
+        <%= form.file_field :image %>
+      </div>
+
+
+    <div>
+      <%= form.submit%>
+    </div>
+<% end %> 
+
+
+
+ </div>

@@ -1,20 +1,21 @@
 <div class="add home">
-
+ <%=flash[:alert]%>
  
                <div class="row">
                             <div class="col-6">
 
-                              <% if @all %>
-                              <%@all.each do |i|%>
-                                
+                              <% if @address %>
+                              <%@address.each do |i|%>
+                              
                                 Shop_name:<%= i.shop_name%>
                                 <li class="cards_item">
                                   <div class="card">
-                                    <div class="card_image"><img src="https://picsum.photos/500/300/?image=10"></div>
+                                    <div class="card_image"><%= image_tag i.image if i.image.attached?%>
+</div>
                                     <div class="card_content">
                                       <h2 class="card_title">Shop_name :<%= i.shop_name%></h2>
-                                      <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-                                       <%= link_to 'Resquest for services' ,client_request_path(i.id),class:"btn btn-primary"%>
+                                      <p class="card_text">address :<%=i.address%></p>
+                                       <%= link_to 'Resquest for services' ,client_request_path(i.id),class:"btn1 text-center"%>
                                     </div>
                                   </div>
                                 </li>
@@ -32,6 +33,10 @@
                             </div>
 
                </div>
+
+
+
+</div>
 
 
 

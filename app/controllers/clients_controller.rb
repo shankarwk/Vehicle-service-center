@@ -13,13 +13,34 @@ class ClientsController < ApplicationController
         @client = client_info(params[:id])
     end
 
+    
     def create
         @admin = CategoryList.new(client_params)
         @admin.save
     end
-    
-    def admin 
-    end    
+    def update_slot
+        a = Slot.find(params[:id])
+        s = Client.where(confirm_slot:a.name)
+        if a.status == "booked"
+            a.update(status:"available") 
+            s.update(status:"not booked")
+            redirect_to user_profile_clients_path
+        else
+            flash[:msg] = "invalid"
+            redirect_to user_profile_clients_path
+        end    
+
+    end
+
+    def bill_detail
+        @bill = Payment.find_by(client_id:params[:id])
+        @data = 0
+        if @bill.present?
+            @data = Client.find(params[:id])
+        end 
+           
+    end
+
     def user_profile
         if current_user.user_rule == "shop owner" 
             @shop_owner = shop_info(current_user.id)
@@ -29,6 +50,15 @@ class ClientsController < ApplicationController
             redirect_to admin_path_clients_path
         end            
     end    
+
+    def revenue
+        @shop = Payment.where(service_center_id:params[:id])
+        @total = 0
+        @shop.each do |i|
+            @total = @total+i.amount
+        end    
+    end    
+
 
     private
     def client_params

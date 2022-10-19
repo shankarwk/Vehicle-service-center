@@ -1,4 +1,4 @@
-
+<%= flash[:msg]%>
 <% if @shop_owner%>
 <%@shop_owner.each do |i|%>
 <header>
@@ -13,7 +13,7 @@
 
                <div class="col-7 text-center">
                 
-                <%=j.status%><br>
+                <%=j.status%> <%=link_to "Release slot",update_slot_client_path(j.id)%><br>
               </div>
    </div>
 
@@ -35,6 +35,7 @@
         <%= i.shop_name%>  <br>
         <%= i.location%>  <br>
         <%= i.address%>  <br>
+        <%= link_to "Revenue",revenue_client_path(i.id)%>
        </div>
     </ul>
   </nav>

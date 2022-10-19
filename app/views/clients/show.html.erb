@@ -1,47 +1,56 @@
- <div class="container add">
-    <h1>History</h1>
-  <%@client.each do |i|%>
-  <%a = Client.find(i)%>
-  <%=a.name%>
-  <%=a.vehicle_number%>
-  <%=a.contact_number%>
-  <%=a.cost%>
-  <%=a.service_center_id%>
-  <%=a.user_id%>
-  <%=a.request_time%>
-  <%=a.request_date%>
-  <%=a.category%>
-  <%=a.cost%>
-  <%=a.confirm_date%>
-  <%=a.confirm_time%>
-  <%=a.confirm_slot%>
-  <%=a.category_time%> <br>
-   <br>
-<%end%>
-<!-- 
-reate_table "clients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
-    t.string "vehicle_number"
-    t.string "contact_number"
-    t.bigint "service_center_id", null: false
-    t.string "status", default: "not booked"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.string "category"
-    t.string "cost"
-    t.string "confirm_time"
-    t.string "confirm_date"
-    t.string "confirm_slot"
-    t.string "request_date"
-    t.string "request_time"
-    t.string "category_time"
-    t.index ["service_center_id"], name: "index_clients_on_service_center_id"
-    t.index ["user_id"], name: "index_clients_on_user_id"
-  end -->
-
- </div>
 
 
- 
+ <div class="bg">
 
+  <h2>User Table</h2>
+  
+  
+  <div class="table-wrapper">
+      <table class="fl-table">
+        <thead >
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">vehicle_number</th>
+            <th scope="col">Contact number</th>
+            <th scope="col">cost</th>
+            <th scope="col">service_center_id</th>
+            <th scope="col">User_id</th>
+            <th scope="col">Request Date</th>
+            <th scope="col">Request_time</th>
+            <th scope="col">Cofirm date</th>
+            <th scope="col">Cofirm Time</th>
+            <th scope="col">Slot number</th>
+            <th scope="col">Category</th>
+            <th scope="col">Next service date</th>  
+            <th scope="col">Bill</th>
+            <th scope="col">Payment</th>
+          </tr>
+        </thead>
+          <tbody>
+            <%@client.each do |i|%>
+            <%a = Client.find(i)%>
+           <tr>
+             <td> <%=a.name%></td>
+             <td> <%=a.vehicle_number%></td>
+             <td><%=a.contact_number%></td>
+             <td> <%=a.cost%></td>
+             <td> <%=a.service_center_id%></td>
+             <td> <%=a.user_id%></td>
+             <td><%=a.request_date%></td>
+             <td> <%=a.request_time%></td>
+             <td> <%=a.confirm_date%></td>
+             <td><%=a.confirm_time%></td>
+             <td><%=a.confirm_slot%></td>
+             <td> <%=a.category%></td>
+             <td><%=a.next_date%></td>
+             <td><%=link_to "Bill",bill_detail_client_path(a.id)%></td>
+             <td> <% if a.confirm_date%>
+               <%= link_to "payment",payment_path(a.id,a.cost,a.service_center_id )%>
+              <%end%>   </td>
+           </tr>
+           <%end%>
+         </tbody>
+      </table>
+  </div>
+  
+    </div>

@@ -8,7 +8,10 @@
             <p class="fw-bold mb-4">Add your Card here</p>
             <%= form_with url: '/charge', method: :post  do |f| %>
             <div class="row mb-4">
-            <%=f.hidden_field :id, value: params[:id]%>
+              <h4 class="text-success">Amount &euro; <%= params[:cost]%></h4>
+              <p><%=f.hidden_field :cost, value: params[:cost]%></p>
+              <%=f.hidden_field :id, value: params[:client_id]%>
+              <%=f.hidden_field :service_center_id, value: params[:service_center_id]%>
               <div class="col-7">
                 <div class="form-outline">
                     <%=f.text_field :number, class: "form-control form-control-lg"%>
@@ -33,12 +36,7 @@
                     <%=f.label :cvc, class: "form-label" %>
                 </div>
               </div>
-              <div class="col-2">
-                <div class="form-outline">
-                    <%=f.text_field :amount_to_be_paid, class:"form-control form-control-lg"%>
-                    <%=f.label :Amount, class: "form-label" %>
-                </div>
-              </div>
+            
             </div>
             <%=f.submit "continue", class:"btn btn-info"%>
         </div>

@@ -1,11 +1,16 @@
+<div class="alert alert-primary text-center" role="alert">
+  <%= flash[:invalid] %>
+  <%=flash[:error]%>
+  <%=flash[:e]%>
+</div>
+
+
 <h1>Please fill below detail to Request for <%= @request_id.shop_name%> </h1>
-
-
 
        <div class="container add">
         <div class="row">
                    <div class="col-6">
-                         <h1> slots</h1>
+                         <h1 style="margin-right: 723px;"> slots</h1>
                      <% if @slots %>
                         <% @slots.each do |i|%>
                           <%=i.name%>
@@ -17,19 +22,42 @@
                    </div>
 
                    <div class="col-6">
-                            <% @time.ids.each do |i|%>
-                              <%a = Client.find(i)%>
-                                <%=a.status%>
-                                <%=a.category_time%>  
-                            <%end%>
+                               Status hgh<br>
+                               
+                               <table class="table">
+                                <thead class="thead-dark ">
+                                  <tr>
+                                    
+                                    <th scope="col">Slot Status</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Time</th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% @time.ids.each do |i|%>
+                                  <%a = Client.find(i)%>
+                                  <tr>
+                                    <%if a.status == "booked"%>
+                                  
+                                    <td><%=a.status%></td>
+                                    <td> <%=a.category%></td>
+                                    <td> <%=a.category_time%></td>
+                                    <%end%> 
+                                  </tr>
+                                  <%end%>
+                                </tbody>
+                              </table>
+                              
+                          
+
+                            </div>
+                             
                   </div>
         </div>
 
 
        </div>
-
-
-
 
 
 <div class="container add mt-5">
@@ -50,10 +78,21 @@
                     <%= form.label :Vehicle_Number%><br>
                     <%= form.text_field :vehicle_number %>
                   </div>
+
                   <div>
                       <%= form.label :Contact_Number%><br>
                       <%= form.text_field :contact_number %>
-                    </div>
+                  </div>
+
+                  <div>
+                    <%= form.label :Date%><br>
+                    <%= form.date_field :request_date %>
+                  </div>
+
+                  <div>
+                    <%= form.label :Time%><br>
+                    <%= form.text_field :request_time %>
+                  </div>
 
 
 

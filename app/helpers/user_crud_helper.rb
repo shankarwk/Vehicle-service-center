@@ -1,0 +1,2 @@
+module UserCrudHelper
+end

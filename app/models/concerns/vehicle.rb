@@ -49,7 +49,8 @@ module Vehicle
       client.update(next_date:t)
     else
       year = year+1
-      month = sum - month
+      month = sum - 12
+      t = "#{date} #{month} #{year}"
       client.update(next_date:t)
     end  
   end  

@@ -1,2 +1,34 @@
-<h1>Slot#show</h1>
-<p>Find me in app/views/slot/show.html.erb</p>
+<div class="bg">
+
+    <h2>Slot Table</h2>
+    
+    
+    <div class="table-wrapper">
+        <table class="fl-table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Show</th>
+                <th>Edit</th>
+                <th>Destroy</th>
+    
+            </tr>
+            </thead>
+            <tbody>
+        
+                <% @slot.each do |i|%>
+            <tr>
+                <td> <%=i.name%></td>
+                <td> <%=i.status%></td>
+                <td> <%=link_to "Show",show_data_service_center_path(i.id),class:"btn btn-danger"%> </td>
+                <td>  <%=link_to "Edit",edit_slot_path(i.service_center_id,i.id),class:"btn btn-danger"%></td>
+                <td> <%= link_to "Destroy", delete_slot_path(i.service_center_id,i.id),class:"btn btn-danger",data: {turbo_method: :delete,turbo_confirm: "Are you sure?"} %></td>
+            </tr>
+            <%end%>
+           
+            <tbody>
+        </table>
+    </div>
+    
+      </div>

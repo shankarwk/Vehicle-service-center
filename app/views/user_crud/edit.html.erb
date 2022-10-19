@@ -1,0 +1,27 @@
+<div class="container add mt-4">
+
+    <%= form_with model:@data ,url:user_crud_path(@data) do |form| %>
+    <div>
+        <%= form.label :Role%><br>
+        <%= form.text_field :user_rule%>
+      </div>
+
+      <div>
+        <%= form.label :email%><br>
+        <%= form.email_field :email%>
+      </div>
+
+      <div>
+        <%= form.label :Password%><br>
+        <%= form.password_field :password%>
+      </div>
+ 
+
+    <div>
+      <%= form.submit%>
+    </div>
+<% end %> 
+
+
+
+ </div>

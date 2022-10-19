@@ -1,2 +1,21 @@
-<h1>Slot#edit</h1>
-<p>Find me in app/views/slot/edit.html.erb</p>
+<div class="container add mt-4">
+
+    <%= form_with model:@ed do |form| %>
+    <div>
+        <%= form.label :name %><br>
+        <%= form.text_field :name%>
+      </div>
+    <div>
+      <%= form.label :status%><br>
+      <%= form.text_field :status%>
+    </div>
+
+
+    <div>
+      <%= form.submit%>
+    </div>
+<% end %> 
+
+
+
+ </div>

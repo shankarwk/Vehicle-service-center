@@ -1,4 +1,4 @@
-<!-- 
+  <!-- 
  <div class="container add">
 
 
@@ -45,12 +45,9 @@
             <td> <%=i.name%></td>
             <td> <%=i.cost%></td>
             <td> <%=i.time%></td>
-            <td>   <%=link_to "show",category_list_path(i),class:"btn btn-danger"%> </td>
-            <td>     <%=link_to "edit", edit_category_list_path(i),class:"btn btn-danger"%></td>
-            <td>      <%= link_to "Destroy", category_list_path(i), data: {
-              turbo_method: :delete,
-              turbo_confirm: "Are you sure?"
-            } %></td>
+            <td> <%=link_to "show",category_list_path(i),class:"btn btn-danger"%> </td>
+            <td> <%=link_to "edit", edit_category_list_path(i),class:"btn btn-danger"%></td>
+            <td> <%= link_to "Destroy", category_list_path(i), data: {turbo_method: :delete,turbo_confirm: "Are you sure?" } %></td>
         </tr>
         <%end%>
        
