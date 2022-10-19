@@ -97,7 +97,7 @@ class ServiceCentersController < ApplicationController
         if m>=m1
           Shop::OrderService.new().request(params,current_user.id)
         else
-          flash[:e] = "invalide date"
+          flash[:e] = "invalid date"
           redirect_to client_request_path(@request_id)
         end    
       else
@@ -112,7 +112,6 @@ class ServiceCentersController < ApplicationController
 
   def add_service
     begin 
-      # get_association(params
       Shop::OrderService.new().get_association(params)
       flash[:n] = 'Your are added the category succesfully'
       redirect_to shop_detail_service_centers_path

@@ -1,20 +1,30 @@
 module Shop
     class OrderService
-       
+   
+                 
         def request(params,id)
+          
           @request_id = ServiceCenter.find(params[:id])
+          @a = @request_id.clients.find_by(request_date:params[:request_date].split("-").reverse.join(" "))
           @client = @request_id.clients.find_by(vehicle_number:params[:vehicle_number])
+          @cat = @request_id.service_types.find_by(name:params[:category])
           if @client&.next_date.present?
             if @client.next_date[0,2].to_i >= Time.now.strftime("%d").to_i && @client.next_date[2,3].strip.to_i >= Time.now.strftime("%m").to_i && @client.next_date[5,7].to_i >= Time.now.strftime("%y").to_i
-              @cat = @request_id.service_types.find_by(name:params[:category])
               @request_id.clients.create(name:params[:name],vehicle_number:params[:vehicle_number],contact_number:params[:contact_number],user_id:id,category:@cat.name,cost:@cat.cost,request_time:params[:request_time],request_date:params[:request_date],category_time:@cat.time)
             else
               flash[:invalid] = "Your vehicle already and Apply after #{@client.next_date}"
               redirect_to client_request_path(@client.service_center_id)
             end  
-          elsif @client == nil
-            @cat = @request_id.service_types.find_by(name:params[:category])
-            @request_id.clients.create(name:params[:name],vehicle_number:params[:vehicle_number],contact_number:params[:contact_number],user_id:id,category:@cat.name,cost:@cat.cost,request_time:params[:request_time],request_date:params[:request_date].split("-").reverse.join(" "),category_time:@cat.time)
+          elsif true
+            if @a
+              if params[:request_time][0,2].to_i >  @a.another_request_time[0,2].to_i
+                @request_id.clients.create(name:params[:name],vehicle_number:params[:vehicle_number],contact_number:params[:contact_number],user_id:id,category:@cat.name,cost:@cat.cost,request_time:params[:request_time].upcase,request_date:params[:request_date].split("-").reverse.join(" "),category_time:@cat.time)
+              else
+                raise "Already booked Choose another time"
+              end  
+            else 
+              @request_id.clients.create(name:params[:name],vehicle_number:params[:vehicle_number],contact_number:params[:contact_number],user_id:id,category:@cat.name,cost:@cat.cost,request_time:params[:request_time].upcase,request_date:params[:request_date].split("-").reverse.join(" "),category_time:@cat.time)
+            end  
           else
           end 
         end  
@@ -82,8 +92,8 @@ module Shop
 
         def pending_order_for_date(params)
           @client = Client.find_by(name:params[:client][:name]) 
-          if @client.confirm_time?
-            raise "select another time"
+          if @client.alloted_slot.present? && @client.another_request_time?
+            
           else
             @client.update(confirm_time:params[:client][:confirm_time],confirm_date:params[:client][:confirm_date],alloted_slot:params[:client][:alloted_slot],another_request_time:params[:client][:another_request_time])
           end              
